@@ -36,8 +36,7 @@ class LinkedList:
         
         print("Current Game Board:", end = "")
         
-        while current_node:
-            
+        while current_node: 
             #If amount of nodes printed is divisible by 5 start a new row
             if nodeCounter % 5 == 0:
                 print("\n")
@@ -53,33 +52,57 @@ class LinkedList:
                 
             current_node = current_node.next
             nodeCounter += 1
-            
         print("\n")
+        
+    def allNonInt(self):
+        current_node = self.head
+        position = 0
+        symbolCounter = 0
+        while current_node is not None and position != 20:
+            if not isinstance(current_node.data[1], int):
+                symbolCounter += 1
+            position += 1
+            current_node = current_node.next
 
+        if symbolCounter == 20:
+            return True
+        else:
+            return False
+
+# Print the linked list for troubleshooting
+    def printLL(self):
+        current_node = self.head
+        while current_node:
+            print(current_node.data)
+            current_node = current_node.next
+        print()
 
 def main():
-    #ChatGPT helped with instructions and understanding python formatting and problem solving
+    #ChatGPT helped with instructions and understanding python formatting and some linked list problem solving
     print("The memory card game, also known as Concentration, is a card-matching game where all cards are laid face down.")
     print("You will take turns flipping over two cards at a time, trying to find matching pairs.")
     print("The goal is to remember the locations of cards to match them and collect pairs until all cards are matched.")
     print("Once you match all the cards and have none flipped upside down you win!\n")
     
     deck = deckBuilder()
-    #gameBoard(deck)
     gameRunning = True
 
     while gameRunning == True:
         deck.printBoard()
+        #Print the linked list for troubleshooting
+        deck.printLL()
         
         guessedCards_guessedSymbols = inputChecker(deck)
         
         if isItAPair(guessedCards_guessedSymbols) == True:
-            print("pair")
             deck.updateNode(guessedCards_guessedSymbols[1][0], int(guessedCards_guessedSymbols[0][0]) - 1)
             deck.updateNode(guessedCards_guessedSymbols[1][1], int(guessedCards_guessedSymbols[0][1]) - 1)
-        
-        if winCheck(deck) == True:
-            #Win message
+
+        #deck.allNonInt()
+
+        if deck.allNonInt() == True:
+            deck.printBoard()
+            print("Congratulations!!! You beat the game. Good job sticking in there!")
             gameRunning = False
     
 #Build a "shuffled" stack of 20 cards that has 2 of each symbol in it in it
@@ -132,10 +155,6 @@ def isItAPair(guessedCards_guessedSymbols):
         print("Sorry but card", guessedCards_guessedSymbols[0][0], "and card", guessedCards_guessedSymbols[0][1], "are not a pair.")
         return False
     
-def winCheck(deck):
-    print()
-    #Check if all nodes in linked list are symbols and have no ints left in any of their indexes  
-
 #If there is a main method, run it
 if __name__ == "__main__":
     main()
