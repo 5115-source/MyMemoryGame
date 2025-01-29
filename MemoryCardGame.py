@@ -1,6 +1,6 @@
 #ChatGPT helped with game introduction and understanding python formatting and some linked list problem solving
 #Used chatGPT to help with learning python syntax and how to arrange pieces for a desired output
-#Used geeks for geeks to reference some python linked list base code
+#Used geeks for geeks to reference some python linked list base code which was modified to fit this specific program
 import random
 
 #Node class to use in creating and manipulating linked lists
